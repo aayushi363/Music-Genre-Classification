@@ -38,21 +38,11 @@
 <ul>
 <li>
   <h2 style="text-align: left;">Conceptual Review</h2>
-<p>An Artificial Neural Network (ANN) is based on a collection of con-
-  nected units or nodes called artificial neurons. Each connection trans-
-  mits a signal to other neurons. An artificial neuron that receives a
-  signal then processes it and can signal other neurons connected to it.
-  The ”signal” at a connection is a real number, and the output of each
-  neuron is computed by some non-linear function of the sum of its in-
-  puts. The connections are called edges. Neurons and edges typically
-  have a weight that is used for adjustments as learning proceeds. The
-  weight increases or decreases the strength of the signal at a connec-
-  tion. Neurons may have a threshold such that a signal is sent only
-  if the aggregate signal crosses that threshold. Typically, neurons are
-  aggregated into layers. Different layers may perform different transfor-
-  mations on their inputs. Signals travel from the first layer (the input
-  layer), to the last layer (the output layer), possibly after traversing the
-  layers multiple times.
+<p>In sound processing, the Mel-Frequency Cepstrum (MFC) is a representation of the short-term power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear Mel scale. Mel-Frequency Cepstral Coefficients (MFCCs) are coefficients that collectively make up an MFC. MFCCs are extracted from all the audio files in the GTZAN dataset. Each audio file is of 30 seconds duration, which is further divided into 10 segments to derive the MFCCs. A JSON file is created to store the MFCCs of all the audios with their respective genres.
+
+  An Artificial Neural Network (ANN) is based on a collection of connected units or nodes called artificial neurons. Each connection transmits a signal to other neurons. An artificial neuron that receives a signal then processes it and can signal other neurons connected to it. The “signal” at a connection is a real number, and the output of each neuron is computed by some non-linear function of the sum of its inputs. The connections are called edges. Neurons and edges typically have a weight that is used for adjustments as learning proceeds. The weight increases or decreases the strength of the signal at a connection. Neurons may have a threshold such that a signal is sent only if the aggregate signal crosses that threshold. Typically, neurons are aggregated into layers. Different layers may perform different transformations on their inputs. Signals travel from the first layer (the input layer) to the last layer (the output layer), possibly after traversing the layers multiple times.
+  
+  Both concepts put together allow us to create a pipeline which when setup, can be used to make a classification over a new song’s genre.
 </p>
 </li>
 </ul>
@@ -64,18 +54,14 @@
   <li>
     <h2>Implementation Details</h2>
       <ul>
-        <li> A 9 layer deep neural network, with dropout
-          for regularization and batch normalization for stabilizing the learning
-          process, was trained on the MFCCs extracted with a batch size of 32,
-          for 75 epochs. </li>
-        <li> The Adam optimizer is used with a learning rate of 0.01
-          and cross-entropy loss is monitored along with accuracy as a metric. </li>
+        <li> A 9 layer deep neural network, with dropout layers for regularization and batch normalization layers for stabilizing the learning process, was trained on the MFCCs extracted with a batch size of 24, for 100 epochs. </li>
+        <li> The Adam optimizer is used with a learning rate of 0.01 and cross-entropy loss is monitored along with accuracy as a metric. </li>
 
-        <li> We have used GTZAN dataset for training. The GTZAN dataset is the most-used 
-          public dataset for evaluation in machine listening research for music genre 
-          recognition (MGR). The files were collected in 2000-2001 from a variety of 
-          sources including personal CDs, radio, microphone recordings, in order to 
-          represent a variety of recording conditions </li>
+        <li> The “rlprop” [ReduceLROnPlateau] callback has been setup as well, in order to reduce learning rate when a metric has stopped improving. </li>
+
+        <li> We have used GTZAN dataset [link : GTZAN Dataset - Music Genre Classification | Kaggle] for training. The GTZAN dataset is the most-used public dataset for evaluation in machine listening research for music genre recognition (MGR). The files were collected in 2000-2001 from a variety of sources including personal CDs, radio, microphone recordings, to represent a variety of recording conditions </li>
+
+        <li> <a href="Phase1.html" target = "_blank"  rel="noopener noreferrer">Github Link</a></li>
       </ul>
     <p>
   </li>
@@ -87,8 +73,17 @@
   <li>
     <h2>Your Findings</h2>
       <ul>
-        <li> Sample text </li>
-        <li> Add Github link in the Implemenation details section</li>
+        <li> Upon several changes between different combination of layer parameters, size, architecture the above mentioned settings seemed to be a good fit so far, as it seems to be generalizing the data well and reducing the overall losses while giving us a very good accuracy of 90+ %. </li>
+        <div class = "clearfix wrapper">
+          <img src="Screenshot from 2022-10-24 09-46-14.png" alt="img" class="pull-left">
+          <h class="heading" style="text-align: centre;">MLP Classification</h>
+        </div>
+        <div class = "clearfix wrapper">
+          <img src="Screenshot from 2022-10-24 09-46-35.png" alt="img" class="pull-left">
+          <h class="heading" style="text-align: centre;">Confusion Matrix</h>
+        </div>
+        <li> Although, while working on ANN, a lot of NN architecture factors boiled down to our hardware, but it was the learning rate which has given quite unpredictable results and hence the safest magnitude we found for it was. 
+       </li>
       </ul>
     <p>
   </li>

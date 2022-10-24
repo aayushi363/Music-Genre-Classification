@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Music Genre Classification</title>
+<meta property="og:title" content="Music Genre Classification" />
+<meta name="twitter:title" content="Music Genre Classification" />
+<meta name="description" content="Compare various Models for Music genre classfication" />
+<meta property="og:description" content="Compare various Models for Music Genre Classfication." />
+<meta name="twitter:description" content="Compare various Models for Music Genre Classfication." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- bootstrap for mobile-friendly layout -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+</head>
+<body class="nd-docs">
+<div class="nd-pageheader">
+ <div class="container">
+ <h1 class="lead">
+ <nobr class="widenobr">Music Genre Classification</nobr>
+ <nobr class="widenobr">For CS 7150</nobr>
+ </h1>
+ <h2 class="lead">
+  <nobr class="widenobr"><b>PHASE 2</b></nobr>
+ </h2>
+ </div>
+</div><!-- end nd-pageheader -->
+
+<div class="container">
+<div class="row">
+<div class="col justify-content-left text-left">
+<h1 style="text-align:center;">PROGRESS REPORT</h1>
+<ul>
+<li>
+  <h2 style="text-align: left;">Conceptual Review</h2>
+<p>An Artificial Neural Network (ANN) is based on a collection of con-
+  nected units or nodes called artificial neurons. Each connection trans-
+  mits a signal to other neurons. An artificial neuron that receives a
+  signal then processes it and can signal other neurons connected to it.
+  The ”signal” at a connection is a real number, and the output of each
+  neuron is computed by some non-linear function of the sum of its in-
+  puts. The connections are called edges. Neurons and edges typically
+  have a weight that is used for adjustments as learning proceeds. The
+  weight increases or decreases the strength of the signal at a connec-
+  tion. Neurons may have a threshold such that a signal is sent only
+  if the aggregate signal crosses that threshold. Typically, neurons are
+  aggregated into layers. Different layers may perform different transfor-
+  mations on their inputs. Signals travel from the first layer (the input
+  layer), to the last layer (the output layer), possibly after traversing the
+  layers multiple times.
+</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<ul>
+  <li>
+    <h2>Implementation Details</h2>
+      <ul>
+        <li> A 9 layer deep neural network, with dropout
+          for regularization and batch normalization for stabilizing the learning
+          process, was trained on the MFCCs extracted with a batch size of 32,
+          for 75 epochs. </li>
+        <li> The Adam optimizer is used with a learning rate of 0.01
+          and cross-entropy loss is monitored along with accuracy as a metric. </li>
+
+        <li> We have used GTZAN dataset for training. The GTZAN dataset is the most-used 
+          public dataset for evaluation in machine listening research for music genre 
+          recognition (MGR). The files were collected in 2000-2001 from a variety of 
+          sources including personal CDs, radio, microphone recordings, in order to 
+          represent a variety of recording conditions </li>
+      </ul>
+    <p>
+  </li>
+</ul>
+</div></div>
+<div class="row">
+<div class="col">
+<ul>
+  <li>
+    <h2>Your Findings</h2>
+      <ul>
+        <li> Sample text </li>
+        <li> Add Github link in the Implemenation details section</li>
+      </ul>
+    <p>
+  </li>
+</ul>
+</div></div>
+
+<div class="row">
+  <div class="col">
+<ul>
+  <li>
+    <h2>Future Plans</h2>
+       As the Refernce paper states there are various other methods of Music Genre Classfication.
+       Our future plan is to execute CNN and RNN on the same GTZAN dataset and find the cross entropy loss
+       so that we ca monitor accuracy of each model. We will be comparing the accuracy of these three models on 
+       a common data
+    <p>
+  </li>
+</ul>
+</div></div>
+
+<div class="row">
+<div class="col">
+<ul>
+  <li> 
+    <h3>References</h3>
+
+      <p><a name="bottou-1990">[1]</a> <a href="http://cs229.stanford.edu/proj2011/HaggbladeHongKao-MusicGenreClassification.pdf"
+        >Haggblade, M., Hong, Y., & Kao, K. (2011). Music Genre Classification.</a>
+      </p>
+      <p><a name="bottou-1990">[2]</a> <a href="https://portfolios.cs.earlham.edu/wp-content/uploads/2021/09/Lam_Literature_review.pdf"
+        >Hoang, L. (2018). Literature Review about Music Genre Classification.</a>
+      </p>
+      <p><a name="bottou-1990">[3]</a> <a href="https://arxiv.org/pdf/2011.11970.pdf"
+        >Agrawal, M., & Nandy, A. (2020). A Novel Multimodal Music Genre Classifier using Hierarchical Attention and Convolutional Neural Network.</a>
+      </p>
+      <p><a name="bottou-1990">[4]</a> <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.8500&rep=rep1&type=pdf"
+        >Mandel, M., & Ellis, D. (2006). Song-level features and svms for music classification. In In Proceedings of the 6th International Conference on Music Information Retrieval, ISMIR (Vol. 5).</a>
+      </p>
+  </li>
+</ul>
+</div></div>
+
+<div class="row">
+<div class="col">
+<ul>  
+  <li>
+    <h2>Team Members</h2>                                                   
+      <p>
+        <ul>
+          <li> Aayushi Gautam</li>
+          <li> Visheshank Mishra</li>
+        </ul>
+      </p>
+  </li>
+</ul>
+
+</div><!--col-->
+</div><!--row -->
+</div> <!-- container -->
+
+<footer class="nd-pagefooter">
+  <div class="row">
+    <div class="col-6 col-md text-center">
+      <a href="https://cs7150.baulab.info/">About CS 7150</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+<script>
+$(document).on('click', '.clickselect', function(ev) {
+  var range = document.createRange();
+  range.selectNodeContents(this);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+});
+// Google analytics below.
+window.dataLayer = window.dataLayer || [];
+</script>
+</html>

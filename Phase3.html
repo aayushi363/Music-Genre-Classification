@@ -25,117 +25,281 @@
  <nobr class="widenobr">Music Genre Classification</nobr>
  <nobr class="widenobr">For CS 7150</nobr>
  </h1>
- <h2 class="lead">
-  <nobr class="widenobr"><b>Long Short Term Memory Model</b></nobr>
- </h2>
+ <!-- <h2 class="lead">
+  <nobr class="widenobr"><b>PHASE 1</b></nobr>
+ </h2> -->
  </div>
 </div><!-- end nd-pageheader -->
 
 <div class="container">
 <div class="row">
-<div class="col justify-content-left text-left">
-<h1 style="text-align:center;">PROGRESS REPORT</h1>
-<ul>
-<li>
-  <h2 style="text-align: left;">Conceptual Review</h2>
-<p>Different from other Neural Network (NN) techniques, RNNs supply time-related context-based information
-    to make decision relying on connections formed in cycle. The plain RNN structure could not handle
-    long-term dependencies as the issues relating to vanishing gradient might arise. Therefore, 
-    Long-Short Term Memory (LSTM) was suggested as it can make another connection state present 
-    from successfully updated current activations.
+<div class="col justify-content-center text-left">
+<h1 style="text-align:center;"><b>Introduction</b></h1>
+<h2><b>Goal: Which Neural Network model has the Highest Validation Accuracy?</b> </h2>
+<p>As the quantity of music being released on internet platforms is on a constant
+  rise, genre classification becomes an important task, and has a wide variety
+  of applications. Based on the current statistics, almost 60,000 songs are
+  uploaded to Spotify every day and hence the need for reliable data required
+  for search and storage purposes climbs in proportion. Music Genre Classification 
+  has been one of the most prolific areas in
+  machine learning, specifically, and in computer science, generally.
+  One of the most popular classification methods for this is the use
+  of deep learning techniques, most notably the Neural Networks (or
+  NN) to process large music datasets to identify the corresponding
+  genre.  Several Machine Learning 
+  and Deep learning models are developed to solve this problem. Some are listed below:
+  <ul>
+    <li><i class="ri-check-double-line"></i> Artificial Neural Networks (ANNs)</li>
+    <li><i class="ri-check-double-line"></i> Long Short Term Memory Model(LSTM)</li>
+    <li><i class="ri-check-double-line"></i> Convolutional Neural Networks (CNNs)</li>
+  </ul>
 </p>
-</li>
-</ul>
+  <p><b>Aim of this project is to compare above four most used models and find out which model gives us the accurate results.</b></p>
 </div>
 </div>
 <div class="row">
 <div class="col">
+
+<h2><b>Dataset Used</b></h2>
+<p> The proposed dataset in the majority of research papers on this subject is GTZAN. 
+  A popular Kaggle tool called GTZAN is made up of 1000 30-second-long music snippets. 
+  There are 100 audio clips for each of the ten genres represented in this dataset, which 
+  includes blues, classical, country, disco, hip hop, rock, metal, pop, jazz, and disco. 
+  The GTZAN dataset is one of the most well-known public datasets available for music genre recognition,
+   having been used in more than 100 CS papers on the same subject.</p>
+
+<h2><b> Mel-Frequency Cepstral Coefficient</b></h2>
+<div class="row">
+  <div class="column">
+    <img src="spectrogram.png" alt="Snow" style="width:100%">
+    <figcaption><b>Fig.1 - Spectrogram of MFCC</b></figcaption>
+  </div>
+  <div class="column">
+    <img src="MFCC.png" alt="Forest" style="width:100%">
+    <figcaption><b>Fig.2 - How to calculate MFCC</b></figcaption>
+  </div>
+</div>
+<p>
+  We needed a clear way to represent song waveforms for audio processing. We were introduced 
+  to MFCCs by existing music processing literature as a way to represent time domain waveforms 
+  as a small number of frequency domain coefficients. The Mel scale relates perceived frequency, 
+  or pitch, of a pure tone to its actual measured frequency. Humans are much better at discerning 
+  small changes in pitch at low frequencies than they are at high frequencies. Incorporating this 
+  scale makes our features match more closely what humans hear.</p>
+  <p>
+    In sound processing, the Mel-Frequency Cepstrum (MFC) is a representation of the short-term 
+    power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear 
+    Mel scale. Mel-Frequency Cepstral Coefficients (MFCCs) are coefficients that collectively make up an 
+    MFC. MFCCs are extracted from all the audio files in the GTZAN dataset. Each audio file is of 30 seconds 
+    duration, which is further divided into 10 segments to derive the MFCCs. A JSON file is created to store 
+    the MFCCs of all the audios with their respective genres.
+  </p>
+
+<h2 style="text-align: left;"><b>Artificial Neural Network (ANN)</b></h2>
+<img src="Anninfo.png" alt="Snow" style="width:40%;height:10%;float:right">
+
+<h3>Conceptual Overview</h3>
+
+  <p>
+    An Artificial Neural Network (ANN) is based on a collection of connected 
+    units or nodes called artificial neurons. Each connection transmits a signal 
+    to other neurons. An artificial neuron that receives a signal then processes it
+    and can signal other neurons connected to it. The “signal” at a connection is 
+    a real number, and the output of each neuron is computed by some non-linear function 
+    of the sum of its inputs. The connections are called edges. Neurons and edges typically
+    have a weight that is used for adjustments as learning proceeds. The weight increases or 
+    decreases the strength of the signal at a connection. Neurons may have a threshold such that 
+    a signal is sent only if the aggregate signal crosses that threshold. Typically, neurons are 
+    aggregated into layers. Different layers may perform different transformations on their inputs. 
+    Signals travel from the first layer (the input layer) to the last layer (the output layer), possibly 
+    after traversing the layers multiple times.
+  </p>
+  
+<h3>Implementation Details </h3>
+
 <ul>
-  <li>
-    <h2>Implementation Details</h2>
-      <ul>
+    <li> A 9 layer deep neural network, with dropout layers for regularization and batch normalization 
+      layers for stabilizing the learning process, was trained on the MFCCs extracted with a batch size 
+      of 24, for 100 epochs. 
+    </li>
+    <li> The Adam optimizer is used with a learning rate of 0.01 and cross-entropy loss is monitored along
+         with accuracy as a metric. 
+    </li>
+    <li> The “rlprop” [ReduceLROnPlateau] callback has been setup as well, in order to reduce learning rate 
+      when a metric has stopped improving. 
+    </li>
+    <li> We have used GTZAN dataset [link : GTZAN Dataset - Music Genre Classification | Kaggle] for training. 
+      The GTZAN dataset is the most-used public dataset for evaluation in machine listening research for music 
+      genre recognition (MGR). The files were collected in 2000-2001 from a variety of sources including personal CDs, 
+      radio, microphone recordings, to represent a variety of recording conditions 
+    </li>
+  </ul>
+ <h3> Findings</h3>
+ <div class="row">
+    <div class="column">
+      <img src="GraphANN.png" alt="Snow" style="width:100%">
+      <figcaption><b>Fig.3 - Graph of ANN</b></figcaption>
+    </div>
+    <div class="column">
+      <img src="CMANN.png" alt="Forest" style="width:100%">
+      <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
+    </div>
+  </div>
+  <p> Need to explain above</p>
+
+  <h2 style="text-align: left;"><b>Long Short Term Memory (LSTM)</b></h2>
+  <img src="lstminfo.png" alt="Snow" style="width:40%;height:5%;float:right">
+    <h3> Conceptual Overview</h3>
+   
+
+        <p>
+            Different from other Neural Network (NN) techniques, RNNs supply time-related context-based information
+            to make decision relying on connections formed in cycle. The plain RNN structure could not handle
+            long-term dependencies as the issues relating to vanishing gradient might arise. Therefore, 
+            Long-Short Term Memory (LSTM) was suggested as it can make another connection state present 
+            from successfully updated current activations.
+
+            The LSTM is a branch of the RNN. RNN differs only slightly from conventional neural networks in terms of design.
+            The stored historical data is used to make predictions about the future output. Additionally, LSTM is a brand-new, 
+            improved division that solves the issue of long-term dependencies. Even so, RNN makes use of the stored data to make
+            predictions about the future based on the past. When there is a significant difference between the current situation 
+            and the situation from which the information must be drawn, the information cannot be linked.
+        </p>
+    <h3> Implementation Details</h3>
+    <ul>
         <li> An LSTM network was built consisting of two LSTM layers and three fully connected dense layers.</li>
         <li>Adam optimizer with a learning rate of 0.0001 was used. </li>
         <li>Cross-entropy loss and accuracy were set as the metrics and the network was trained for 80 epochs on data with batch size of 32. </li>
-        <li> <a href="https://github.com/RealVizz/Music-Genre-Classification-For-CS-7150/tree/main/Notebooks" target = "_blank"  rel="noopener noreferrer">Github Link</a></li>
-      </ul>
-    <p>
-  </li>
-</ul>
-</div></div>
-<div class="row">
-<div class="col">
-<ul>
-  <li>
-    <h2>Your Findings</h2>
-      <ul>
-        <li> Upon several changes between different combination of layer parameters, size, architecture the above mentioned settings seemed to be a good fit so far, as it seems to be generalizing the data well and reducing the overall losses while giving us a very good accuracy of 90+ %. </li>
-        <div class = "clearfix wrapper">
-          <img src="Screenshot from 2022-10-24 09-46-14.png" alt="img" class="pull-left">
-          <h class="heading" style="text-align: centre;">MLP Classification</h>
-        </div>
-        <div class = "clearfix wrapper">
-          <img src="Screenshot from 2022-10-24 09-46-35.png" alt="img" class="pull-left">
-          <h class="heading" style="text-align: centre;">Confusion Matrix</h>
-        </div>
-        <li> Although, while working on ANN, a lot of NN architecture factors boiled down to our hardware, but it was the learning rate which has given quite unpredictable results and hence the safest magnitude we found for it was. 
-       </li>
-      </ul>
-    <p>
-  </li>
-</ul>
-</div></div>
+     </ul>
+     <h3> Findings</h3>
+    <div class="row">
+    <div class="column">
+      <img src="GraphLSTM.png" alt="Snow" style="width:100%">
+      <figcaption><b>Fig.3 - Graph of LSTM</b></figcaption>
+    </div>
+    <div class="column">
+      <img src="CMLSTM.png" alt="Forest" style="width:100%">
+      <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
+    </div>
+  </div>
+  <p> Need to explain above</p>
 
-<div class="row">
-  <div class="col">
-<ul>
-  <li>
-    <h2>Future Plans</h2>
-       As the Refernce paper states there are various other methods of Music Genre Classfication.
-       Our future plan is to execute CNN and RNN on the same GTZAN dataset and find the cross entropy loss
-       so that we ca monitor accuracy of each model. We will be comparing the accuracy of these three models on 
-       a common data
-    <p>
-  </li>
-</ul>
-</div></div>
+  <h2 style="text-align: left;"><b>Convolutional Neural Network (CNN)</b></h2>
+  <img src="CNNinfo.png" alt="Snow" style="width:40%;height:10%;float:right">
+  <h3> Conceptual Overview</h3>
+  
 
-<div class="row">
-<div class="col">
-<ul>
-  <li> 
-    <h3>References</h3>
-
-      <p><a name="bottou-1990">[1]</a> <a href="http://cs229.stanford.edu/proj2011/HaggbladeHongKao-MusicGenreClassification.pdf"
-        >Haggblade, M., Hong, Y., & Kao, K. (2011). Music Genre Classification.</a>
-      </p>
-      <p><a name="bottou-1990">[2]</a> <a href="https://portfolios.cs.earlham.edu/wp-content/uploads/2021/09/Lam_Literature_review.pdf"
-        >Hoang, L. (2018). Literature Review about Music Genre Classification.</a>
-      </p>
-      <p><a name="bottou-1990">[3]</a> <a href="https://arxiv.org/pdf/2011.11970.pdf"
-        >Agrawal, M., & Nandy, A. (2020). A Novel Multimodal Music Genre Classifier using Hierarchical Attention and Convolutional Neural Network.</a>
-      </p>
-      <p><a name="bottou-1990">[4]</a> <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.8500&rep=rep1&type=pdf"
-        >Mandel, M., & Ellis, D. (2006). Song-level features and svms for music classification. In In Proceedings of the 6th International Conference on Music Information Retrieval, ISMIR (Vol. 5).</a>
-      </p>
-  </li>
-</ul>
-</div></div>
-
-<div class="row">
-<div class="col">
-<ul>  
-  <li>
-    <h2>Team Members</h2>                                                   
       <p>
-        <ul>
-          <li> Aayushi Gautam</li>
-          <li> Visheshank Mishra</li>
-        </ul>
-      </p>
-  </li>
-</ul>
+        A Convolutional Neural Network (ConvNet/CNN) is a Deep Learning algorithm that can take in an input image, weight 
+        the image's different features according to importance, and then distinguish between them. In the neural network, 
+        CNN uses convolution and pooling in alternating order.</p>
+      <p>
+        <b>Convolution:</b> the network's use of kernels or grids (multidimensional weights) to apply to the input image.
+        In our example, the kernel and spectrogram will be combined with a dot product, and the resulting grid will be passed to the following layer.
+        CNN can use kernels as feature detectors because they can identify the type of MFFC's over a given period of time.
+      <p>  
 
+        <b>Pooling: </b>shrinks the image and collects the kernel-identified features. The size of the feature maps is reduced by pooling layers. 
+        As a result, it lessens the quantity of network computation and the number of parameters that must be learned. An area of the feature map 
+        produced by a convolution layer is summarized by the pooling layer's features.
+      </p>
+  <h3> Implementation Details</h3>
+  <ul>
+      <li> A ConvNet is constructed by using 2D convolutional layers, batch normalization layers, and max pooling layers for down sampling the feature maps.</li>
+      <li>The optimization algorithm used is Adam and the learning rate is set to 0.001.  </li>
+      <li>Cross-entropy loss and accuracy are used as metrics and the network is trained for 80 epochs on data with batch size of 32.</li>  
+    </ul>
+   <h3> Findings</h3>
+  <div class="row">
+  <div class="column">
+    <img src="GraphCNN.png" alt="Snow" style="width:100%">
+    <figcaption><b>Fig.3 - Graph of CNN</b></figcaption>
+  </div>
+  <div class="column">
+    <img src="CMCNN.png" alt="Forest" style="width:100%">
+    <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
+  </div>
+</div>
+<p> Need to explain above</p>
+
+<h3><b>Conclusion</b></h3>
+Following are the conclusions we made:
+<ol>
+  <li>
+    From the graph of CNN we can deduce that, CNN requires very few parameters to reach a answer as compared to dense layer models. 
+  </li>
+  <li>
+    In CNN, the use of Kernel as filter hepls it to detects the feature of the image(spectrogram of MFCC) easily.
+  </li>
+  <li>
+    LSTM can understand the context more efficiently than other models because it is capable of predicting the next step based on 
+    previous data points.
+  </li>
+  <li>
+    The final result of ANN, LSTM and CNN can be deduced from the following table. Accuracy of the deep layer network i.e ANN is best, because
+    it is having the most layers. If we keep the number of layers constant in all the models, LSTM would have given the best results.
+    We increased the number of layers in ANN on purpose, just to find out that how many layers would be required for a primitive method like ANNs
+    to outcast the performance of LSTM.
+  </li>
+</ol>
+<img src="Screenshot 2022-12-12 at 6.04.01 PM.png" alt="Snow" style="width:100%">
+
+<h2><b>Future Work</b></h2>
+<p>
+  <ol>
+    <li>
+      We can use basic Machine learning Algorithms like KL divergence, Random Forest and KNN to classify music and compare them with the 
+      existing ones.
+    </li>
+    <li> More interesting future work that can be done is eveloping a system for auto- matically creating a new compound by blending western 
+        music with classical music. The idea behind this work is motivated by various existing applications which make use of artificial 
+        intelligence for automatic music generation and remixing.</li>
+  </ol>
+</p>
+
+<h2><b> Individual Contribution</b></h2>
+<ol>
+  <li>Literature Review: Aayushi</li>
+  <li>Implementation of ANN: Visheshank</li>
+  <li>Implementation of CNN: Visheshank</li>
+  <li>Implementation of LSTM: Aayushi</li>
+  <li> Presentation: Aayushi and Visheshank</li>
+  <li>Report: Aayushi and Visheshank</li>
+</ol>
+
+<a href="https://github.com/aayushi363/Music-Genre-Classification.git"><h2><b>Github Link to the Project Notebooks</b></h2></a>
+
+
+
+<h2><b>References</b></h2>
+
+<p><a name="bottou-1990">[1]</a> <a href="http://cs229.stanford.edu/proj2011/HaggbladeHongKao-MusicGenreClassification.pdf"
+  >Haggblade, M., Hong, Y., & Kao, K. (2011). Music Genre Classification.</a>
+</p>
+<p><a name="bottou-1990">[2]</a> <a href="https://portfolios.cs.earlham.edu/wp-content/uploads/2021/09/Lam_Literature_review.pdf"
+  >Hoang, L. (2018). Literature Review about Music Genre Classification.</a>
+</p>
+<p><a name="bottou-1990">[3]</a> <a href="https://arxiv.org/pdf/2011.11970.pdf"
+  >Agrawal, M., & Nandy, A. (2020). A Novel Multimodal Music Genre Classifier using Hierarchical Attention and Convolutional Neural Network.</a>
+</p>
+<p><a name="bottou-1990">[4]</a> <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.8500&rep=rep1&type=pdf"
+  >Mandel, M., & Ellis, D. (2006). Song-level features and svms for music classification. In In Proceedings of the 6th International Conference on Music Information Retrieval, ISMIR (Vol. 5).</a>
+</p>
+<p><a name="bottou-1990">[5]</a> <a href="https://link.springer.com/chapter/10.1007/978-981-16-8721-1_67"
+  >Bahuleyan H (2018) Music genre classification using machine learning techniques, Sound (cs.SD); Audio and speech processing (eess.AS)</a>
+</p>
+
+
+<h2>Team Members</h2>
+                                                   
+<p>
+  <ul>
+    <li> Aayushi Gautam</li>
+    <li> Visheshank Mishra</li>
+  </ul>
+  </p>
+
+  
 </div><!--col-->
 </div><!--row -->
 </div> <!-- container -->

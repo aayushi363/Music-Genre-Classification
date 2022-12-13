@@ -137,7 +137,7 @@
  <h3> Findings</h3>
  <div class="row">
     <div class="column">
-      <img src="GraphANN.png" alt="Snow" style="width:100%">
+      <img src="GraphANN.png" alt="Snow" style="width:100%;height:80%">
       <figcaption><b>Fig.3 - Graph of ANN</b></figcaption>
     </div>
     <div class="column">
@@ -145,7 +145,13 @@
       <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
     </div>
   </div>
-  <p> Need to explain above</p>
+  <p> The matrix above tells us out of all cases for respective categories, 
+    how many cases have been correctly classified. For ex: For pop genre, 78 
+    have been correctly classified. 6 cases for pop have been misclassified as disco, 
+    2 have been misclassified for blues and so. </p>
+    <p>
+    The training reached convergence after training ~1.4 millions parameters at around 35 
+    epochs.</p>
 
   <h2 style="text-align: left;"><b>Long Short Term Memory (LSTM)</b></h2>
   <img src="lstminfo.png" alt="Snow" style="width:40%;height:5%;float:right">
@@ -174,7 +180,7 @@
      <h3> Findings</h3>
     <div class="row">
     <div class="column">
-      <img src="GraphLSTM.png" alt="Snow" style="width:100%">
+      <img src="GraphLSTM.png" alt="Snow" style="width:100%;height:80%">
       <figcaption><b>Fig.3 - Graph of LSTM</b></figcaption>
     </div>
     <div class="column">
@@ -182,10 +188,14 @@
       <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
     </div>
   </div>
-  <p> Need to explain above</p>
+  <p> The matrix above tells us out of all cases for respective categories, how many cases have been correctly classified. For ex: For pop genre, 
+    80 have been correctly classified. 6 cases for pop have been misclassified as disco, 2 have been misclassified as rock, 2 have been misclassified 
+    as jazz and so on. </p>
+<p>
+    The training reached convergence after training ~215k parameters at around 40 epochs</p>
 
   <h2 style="text-align: left;"><b>Convolutional Neural Network (CNN)</b></h2>
-  <img src="CNNinfo.png" alt="Snow" style="width:40%;height:10%;float:right">
+  <img src="CNNinfo.png" alt="Snow" style="width:40%;height:5%;float:right">
   <h3> Conceptual Overview</h3>
   
 
@@ -212,7 +222,7 @@
    <h3> Findings</h3>
   <div class="row">
   <div class="column">
-    <img src="GraphCNN.png" alt="Snow" style="width:100%">
+    <img src="GraphCNN.png" alt="Snow" style="width:100%;height:80%">
     <figcaption><b>Fig.3 - Graph of CNN</b></figcaption>
   </div>
   <div class="column">
@@ -220,7 +230,10 @@
     <figcaption><b>Fig.4 - Confusion Matrix</b></figcaption>
   </div>
 </div>
-<p> Need to explain above</p>
+<p>CNN:The matrix above tells us out of all cases for respective categories, how many cases have been correctly classified. For ex: For pop genre, 160 have 
+  been correctly classified. 6 cases for pop have been misclassified as disco, 5 have been misclassified as classical and so on. </p>
+<p>
+  The training reached convergence after training ~1.2 million parameters at around 30 epochs</p>
 
 <h3><b>Conclusion</b></h3>
 Following are the conclusions we made:
@@ -239,7 +252,8 @@ Following are the conclusions we made:
     The final result of ANN, LSTM and CNN can be deduced from the following table. Accuracy of the deep layer network i.e ANN is best, because
     it is having the most layers. If we keep the number of layers constant in all the models, LSTM would have given the best results.
     We increased the number of layers in ANN on purpose, just to find out that how many layers would be required for a primitive method like ANNs
-    to outcast the performance of LSTM.
+    to outcast the performance of LSTM. Out of all the 3 models, LSTM proves to be the best in terms of performance of the training as we got similar 
+    accuracy to CNN but the number of trainable parameters were significantly less and less number of epochs were required to reach convergence.
   </li>
 </ol>
 <img src="Screenshot 2022-12-12 at 6.04.01 PM.png" alt="Snow" style="width:100%">
